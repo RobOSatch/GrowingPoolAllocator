@@ -1,6 +1,8 @@
 #pragma once
 #include "Freelist.h"
 
+#include <vector>
+
 class Allocator
 {
 public:

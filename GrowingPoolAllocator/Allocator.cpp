@@ -22,15 +22,26 @@ Allocator::~Allocator()
 
 void* Allocator::Allocate()
 {
-	return m_freeList->Obtain();
+	void* memory = m_freeList->Obtain();
+
+	if (memory == nullptr)
+	{
+		m_freeList->~Freelist();
+		unsigned char* pool = new unsigned char[m_totalSize];
+		new (&m_freeList) Freelist(pool, pool + m_totalSize, m_chunkSize);
+		memory = m_freeList->Obtain();
+	}
+
+	return memory;
 }
 
 void Allocator::Free(void* ptr)
 {
 	m_freeList->Return(ptr);
+	ptr = nullptr;
 }
 
 void Allocator::InitFreelist()
 {
-	m_freeList = new Freelist(m_start_ptr, reinterpret_cast<char*>(m_start_ptr) + m_totalSize, m_chunkSize, 0, 0);
+	m_freeList = new Freelist(m_start_ptr, reinterpret_cast<char*>(m_start_ptr) + m_totalSize, m_chunkSize);
 }

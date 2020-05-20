@@ -4,7 +4,7 @@
 class Freelist
 {
 public:
-	Freelist(void* start, void* end, size_t chunkSize, size_t alignment, size_t offset);
+	Freelist(void* start, void* end, size_t chunkSize);
 
 	void* Obtain(void);
 	void Return(void* ptr);

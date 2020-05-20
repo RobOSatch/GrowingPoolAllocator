@@ -1,7 +1,7 @@
 #include "Freelist.h"
 
 
-Freelist::Freelist(void* start, void* end, size_t chunkSize, size_t alignment, size_t offset)
+Freelist::Freelist(void* start, void* end, size_t chunkSize)
 {
     union
     {

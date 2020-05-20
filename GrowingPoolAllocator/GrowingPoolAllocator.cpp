@@ -14,11 +14,16 @@ int main()
 {
     std::vector<Bullet*> bullets;
     Allocator* allocator = new Allocator(1024, 32);
+    int count = 0;
 
-    Bullet* first = static_cast<Bullet*>(allocator->Allocate());
-    Bullet* second = static_cast<Bullet*>(allocator->Allocate());
+    for (int i = 0; i < 1000000000; i++)
+    {
+        void* ptr = allocator->Allocate();
+        if (ptr != nullptr) count++;
+        std::cout << ptr << std::endl;
+    }
 
-    std::cout << first << " AND " << second << std::endl;
+    std::cout << count << std::endl;
 
     //std::cout << "Hello World!\n";
 
