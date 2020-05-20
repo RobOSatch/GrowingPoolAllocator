@@ -3,38 +3,30 @@
 
 Freelist::Freelist(void* start, void* end, size_t chunkSize, size_t alignment, size_t offset)
 {
-	/*m_used = 0;
-	m_peak = 0;
+    union
+    {
+        void* as_void;
+        char* as_char;
+        Freelist* as_self;
+    };
 
+    const size_t nChunks = (static_cast<char*>(end) - start) / chunkSize;
 
-	const size_t nChunks = 0;
-	
-	m_head = start;
-	Node* current_node = m_head;
+    // first chunk points to the start of the pool
+    as_void = start;
+    m_next = as_self;
+    as_char += chunkSize;
 
-	for (size_t i = 1; i < nChunks; ++i) 
-	{
-		current_node->next = current_node->address + chunkSize;
-		current_node = current_node->next;
-	}
+    // initialize the free list - make every m_next of each chunk point to the next chunk in the list
+    Freelist* runner = m_next;
+    for (size_t i = 1; i < nChunks; ++i)
+    {
+        runner->m_next = as_self;
+        runner = as_self;
+        as_char += chunkSize;
+    }
 
-	current_node->next = nullptr;*/
-
-	const size_t nChunks = (static_cast<char*>(end) - start) / chunkSize;
-
-	m_next = static_cast<Freelist*>(start);
-
-	Freelist* current = m_next; // head
-
-	
-	for (size_t i = 1; i < nChunks; ++i)
-	{
-		Freelist* nextElement = current + chunkSize;
-		current->m_next = nextElement;
-		current = current->m_next;
-	}
-
-	current->m_next = nullptr;
+    runner->m_next = nullptr;
 }
 
 void* Freelist::Obtain(void)

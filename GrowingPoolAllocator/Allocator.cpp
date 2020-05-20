@@ -13,20 +13,7 @@ Allocator::Allocator(const size_t totalSize, const size_t chunkSize)
 
 	m_start_ptr = malloc(m_totalSize);
 	InitFreelist();
-	//Allocator(m_start_ptr, totalSize, chunkSize);
 }
-
-//Allocator::Allocator(const void* start, const size_t totalSize, const size_t chunkSize)
-//{
-//	assert(chunkSize >= 8 && "Chunk size must be greater or equal to 8?????");
-//	assert(totalSize % chunkSize == 0 && "Total size must be divisible by chunk size");
-//
-//	this->m_totalSize = totalSize;
-//	this->m_chunkSize = chunkSize;
-//
-//	m_start_ptr = malloc(m_totalSize);
-//	InitFreelist();
-//}
 
 Allocator::~Allocator()
 {

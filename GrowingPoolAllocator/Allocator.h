@@ -5,7 +5,6 @@ class Allocator
 {
 public:
 	Allocator(const size_t totalSize, const size_t chunkSize);
-	//Allocator(const void* start, const size_t totalSize, const size_t chunkSize);
 	~Allocator();
 
 	void* Allocate();

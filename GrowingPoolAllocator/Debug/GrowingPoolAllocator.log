@@ -1,3 +1,2 @@
-﻿  Freelist.cpp
-C:\Users\robar\source\repos\GrowingPoolAllocator\GrowingPoolAllocator\Freelist.cpp(23,57): warning C4133: '-': incompatible types - from 'void *' to 'char *'
+﻿  GrowingPoolAllocator.cpp
   GrowingPoolAllocator.vcxproj -> C:\Users\robar\source\repos\GrowingPoolAllocator\Debug\GrowingPoolAllocator.exe
